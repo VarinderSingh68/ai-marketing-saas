@@ -9,5 +9,5 @@ export async function POST(req: Request) {
     prompt: `Write a ${tone} social media post about: ${prompt}. Use appropriate emojis.`,
   });
 
-  return result.toDataStreamResponse();
+  return result.toTextStreamResponse();
 }
