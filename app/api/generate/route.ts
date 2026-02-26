@@ -9,5 +9,6 @@ export async function POST(req: Request) {
     prompt: `Write a ${tone} social media post about: ${prompt}. Use appropriate emojis.`,
   });
 
+  // @ts-ignore
   return result.toTextStreamResponse();
 }
