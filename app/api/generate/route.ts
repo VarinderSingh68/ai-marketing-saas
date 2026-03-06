@@ -3,10 +3,10 @@ import { streamText } from 'ai';
 import { createClient } from '@supabase/supabase-js';
 
 export async function POST(req: Request) {
-  // Initialize INSIDE the function so it's defined
+  // 1. Initialize inside the function scope to ensure TypeScript sees it
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY! 
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
 
   const { prompt, userId } = await req.json();
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
   const responseText = await result.text;
 
-  // Now 'supabase' is defined and this will work
+  // 2. Now 'supabase' is guaranteed to be defined here
   const { error } = await supabase
     .from('posts')
     .insert([
@@ -29,5 +29,10 @@ export async function POST(req: Request) {
       }
     ]);
 
-  // ... rest of your code
+  if (error) {
+    console.error("Supabase Save Error:", error);
+    return new Response(JSON.stringify({ error: 'Database save failed' }), { status: 500 });
+  }
+
+  return new Response(JSON.stringify({ text: responseText }));
 }
