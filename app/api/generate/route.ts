@@ -3,9 +3,8 @@ import { streamText } from 'ai';
 import { createClient } from '@supabase/supabase-js';
 
 export async function POST(req: Request) {
-  // 1. Initialize the client inside the function
-  // Ensure SUPABASE_SERVICE_ROLE_KEY is added in Vercel Environment Variables
-  const supabase = createClient(
+  // 1. Initialize with a unique name 'sb' to avoid naming conflicts
+  const sb = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
@@ -20,8 +19,8 @@ export async function POST(req: Request) {
 
   const responseText = await result.text;
 
-  // 3. Now 'supabase' is defined and accessible here
-  const { error } = await supabase
+  // 3. Use 'sb' instead of 'supabase'
+  const { error } = await sb
     .from('posts')
     .insert([
       { 
