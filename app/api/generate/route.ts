@@ -3,14 +3,16 @@ import { streamText } from 'ai';
 import { createClient } from '@supabase/supabase-js';
 
 export async function POST(req: Request) {
-  // Use a different variable name to avoid any potential scope conflicts
-  const db = createClient(
+  // 1. Initialize the client inside the function
+  // Ensure SUPABASE_SERVICE_ROLE_KEY is added in Vercel Environment Variables
+  const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
 
   const { prompt, userId } = await req.json();
 
+  // 2. Generate content
   const result = await streamText({
     model: google('gemini-1.5-flash'),
     prompt: `Generate marketing copy for: ${prompt}`,
@@ -18,8 +20,8 @@ export async function POST(req: Request) {
 
   const responseText = await result.text;
 
-  // Use 'db' instead of 'supabase'
-  const { error } = await db
+  // 3. Now 'supabase' is defined and accessible here
+  const { error } = await supabase
     .from('posts')
     .insert([
       { 
