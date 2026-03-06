@@ -1,7 +1,8 @@
-export const dynamic = "force-dynamic";
+
 
 "use client";
 
+export const dynamic = "force-dynamic";
 import { useCompletion } from "@ai-sdk/react";
 import { useState, useEffect } from "react";
 import { Copy, Check, History, Sparkles, LogOut, Loader2 } from "lucide-react";
