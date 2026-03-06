@@ -3,8 +3,8 @@ import { streamText } from 'ai';
 import { createClient } from '@supabase/supabase-js';
 
 export async function POST(req: Request) {
-  // 1. Initialize inside the function scope to ensure TypeScript sees it
-  const supabase = createClient(
+  // Use a different variable name to avoid any potential scope conflicts
+  const db = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
@@ -18,8 +18,8 @@ export async function POST(req: Request) {
 
   const responseText = await result.text;
 
-  // 2. Now 'supabase' is guaranteed to be defined here
-  const { error } = await supabase
+  // Use 'db' instead of 'supabase'
+  const { error } = await db
     .from('posts')
     .insert([
       { 
