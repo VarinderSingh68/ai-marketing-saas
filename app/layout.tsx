@@ -1,14 +1,16 @@
 import { ClerkProvider } from '@clerk/nextjs'
 import "./globals.css";
 
-// app/layout.tsx
+// This prevents the "Missing Publishable Key" error during Vercel build
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider >
+    <ClerkProvider>
       <html lang="en">
         <body>
           {children}

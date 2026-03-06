@@ -2,13 +2,13 @@ import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
 
 export async function POST(req: Request) {
-  const { prompt, tone } = await req.json(); // Catch the tone here
+  const { prompt } = await req.json();
 
   const result = await streamText({
-    model: google('gemini-2.0-flash'),
-    prompt: `Write a ${tone} social media post about: ${prompt}. Use appropriate emojis.`,
+    model: google('gemini-1.5-flash'),
+    prompt: prompt,
   });
 
-  // @ts-ignore
+  // Use toTextStreamResponse for simple text generation
   return result.toTextStreamResponse();
 }
