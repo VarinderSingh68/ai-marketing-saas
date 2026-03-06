@@ -1,5 +1,5 @@
 "use server"
-import { createClient } from "@/utils/supabase";
+import { createClient } from "@/utils/supabase/server";
 import { auth } from "@clerk/nextjs/server"; // Import Clerk Auth
 
 export async function savePostToDatabase(content: string, tone: string) {

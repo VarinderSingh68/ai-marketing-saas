@@ -7,7 +7,7 @@ import { useCompletion } from "@ai-sdk/react";
 import { useState, useEffect } from "react";
 import { Copy, Check, History, Sparkles, LogOut, Loader2 } from "lucide-react";
 import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import { createClient } from "@/utils/supabase";
+import { createClient } from "@/utils/supabase/server";
 import { savePostToDatabase } from "./actions";
 
 export default function Home() {
